@@ -1,0 +1,41 @@
+# podsummary configuration (non-secret settings + manual podcast mapping).
+# Copy to config.yaml and edit. Secrets (API keys) come from environment vars.
+
+openai:
+  episode_model: gpt-4o-mini   # per-episode summaries (cheaper/faster, at scale)
+  period_model: gpt-4o         # weekly/period roll-up (higher quality)
+  api_key_env: OPENAI_API_KEY
+  temperature: 0.3
+  max_output_tokens: 1200
+
+matching:
+  title_threshold: 0.6   # 0..1 minimum normalised-title similarity to accept a match
+  date_window_days: 3    # only consider videos published within +/- N days of the episode
+
+transcripts:
+  providers:             # tried in order; first hit wins
+    - youtube_transcript_api
+    - yt_dlp
+  languages: [en]
+
+youtube:
+  prefer: api            # "api" (needs YOUTUBE_API_KEY) or "yt_dlp" (keyless)
+  api_key_env: YOUTUBE_API_KEY
+  max_results: 50
+
+spotify:
+  client_id_env: SPOTIFY_CLIENT_ID
+  client_secret_env: SPOTIFY_CLIENT_SECRET
+  market: US
+
+# Manual mapping of Spotify show names to YouTube channels.
+podcasts:
+  - spotify_name: "The Tim Ferriss Show"
+    youtube_channel: "Tim Ferriss"
+    youtube_channel_id: ""        # optional; preferred over name when set
+  - spotify_name: "Lex Fridman Podcast"
+    youtube_channel: "Lex Fridman"
+    youtube_channel_id: "UCSHZKyawb77ixDdsGog4iWA"
+  - spotify_name: "My YouTube-first show"
+    youtube_channel: "@SomeChannel"
+    youtube_only: true            # ignore Spotify; drive entirely from YouTube
