@@ -1,0 +1,25 @@
+Welcome back to the show. Today we're digging into AI agents and what actually
+makes them useful in production rather than just impressive in a demo. My guest
+has spent the last two years shipping agentic systems at scale.
+
+The first thing we talked about is the gap between a demo and a deployment. In a
+demo you control the inputs, you cherry-pick the happy path, and nobody notices
+when the agent quietly fails. In production, the long tail of weird inputs is
+where everything breaks. The guest's rule of thumb: if you can't observe what
+the agent did step by step, you can't operate it.
+
+We spent a good chunk of time on tool use. The big insight was that giving an
+agent fewer, better-described tools beats giving it a huge toolbox. Every extra
+tool is another way for the model to get confused. They described collapsing
+fourteen tools down to five and seeing reliability jump.
+
+On evaluation, the guest was adamant that you need a real eval set built from
+production traffic, not synthetic prompts. They run a nightly eval that replays
+yesterday's hardest cases and flags regressions before they reach users. The
+quote that stuck with me: "Vibes are not a test suite."
+
+Finally we discussed cost. The counterintuitive takeaway is that a smaller model
+with good retrieval and tight tools often beats a frontier model used naively,
+both on cost and latency. They mentioned the book "Thinking in Systems" as a
+mental model for debugging agent loops, and recommended the Latent Space podcast
+for keeping up. Great conversation. We'll be back next week.
